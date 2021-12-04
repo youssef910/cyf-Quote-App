@@ -1,24 +1,23 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Nav from "./components/Nav";
-import GetQuotes from "./components/GetQuote"
-import SearchQuotes from "./components/SearchQuotes"
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Nav from './components/Nav';
+import RandomQuote from './components/RandomQuote';
+import SearchQuotes from './components/SearchQuotes';
+import Quotes from './components/Quotes';
 
-import "./App.css";
+import './App.css';
+import { Container } from 'semantic-ui-react';
 
 function App() {
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <BrowserRouter>
-          <Nav />
-          <Switch>
-            <Route path="/GetQuotes"  component={GetQuotes}/>
-            <Route  Path="/SearchQuotes" component={SearchQuotes}/>
-          </Switch>
-        </BrowserRouter>
-      </header>
-    </div>
+    <Container className='App'>
+      <Nav />
+      <Routes>
+        <Route path='/all_quotes' element={<Quotes />} />
+        <Route path='/random_quote' element={<RandomQuote />} />
+        <Route Path='/search_quotes' element={<SearchQuotes />} />
+      </Routes>
+    </Container>
   );
 }
 
