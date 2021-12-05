@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Icon, Button } from 'semantic-ui-react';
+import { Card, Icon, Button, Container } from 'semantic-ui-react';
 
 const RandomQuote = () => {
   const [quote, setQuote] = useState([]);
@@ -14,15 +14,17 @@ const RandomQuote = () => {
   };
   useEffect(() => handleGetNewQuote(), []);
   return (
-    <Card centered>
-      <Card.Content>"{quote.quote}" </Card.Content>
-      <Card.Content extra>
-        <Icon name='comments' /> {quote.author}
-      </Card.Content>
-      <Button content='Primary' primary onClick={handleGetNewQuote}>
+    <Container textAlign='center'>
+      <Card centered>
+        <Card.Content>"{quote.quote}" </Card.Content>
+        <Card.Content extra>
+          <Icon name='comments' /> {quote.author}
+        </Card.Content>
+      </Card>
+      <Button content='Primary'  primary onClick={handleGetNewQuote}>
         Get new Quote
       </Button>
-    </Card>
+    </Container>
   );
 };
 

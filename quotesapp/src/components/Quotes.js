@@ -16,7 +16,7 @@ function Quotes() {
   }, []);
   return (
     <Container>
-      <Card.Group>
+      <Card.Group centered>
         {quotes.map((quote, index) => (
           <Card key={index}>
             <Card.Content>"{quote.quote}" </Card.Content>
