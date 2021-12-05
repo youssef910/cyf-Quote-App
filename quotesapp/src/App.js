@@ -10,10 +10,10 @@ import { Container } from 'semantic-ui-react';
 
 function App() {
   return (
-    <Container className='App'>
+    <Container fluid>
       <Nav />
       <Routes>
-        <Route path='/all_quotes' element={<Quotes />} />
+        <Route path='/home' exact element={<Quotes />} />
         <Route path='/random_quote' element={<RandomQuote />} />
         <Route Path='/search_quotes' element={<SearchQuotes />} />
       </Routes>
