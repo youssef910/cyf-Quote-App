@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path='/home' exact element={<Quotes />} />
         <Route path='/random_quote' element={<RandomQuote />} />
-        <Route Path='/search_quotes' element={<SearchQuotes />} />
+        <Route path='/search_quotes' element={<SearchQuotes />} />
       </Routes>
     </Container>
   );
