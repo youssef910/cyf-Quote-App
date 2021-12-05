@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Container, Icon, Button } from 'semantic-ui-react';
+import { Card, Icon, Button } from 'semantic-ui-react';
 
 const RandomQuote = () => {
   const [quote, setQuote] = useState([]);
