@@ -1,81 +1,40 @@
-import React, { Component } from "react";
-import Button from "./Buttons";
-class SearchQuotes extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      quotes: [],
-      isSearching: false,
-      searchParams: {
-        searchQuote: "",
-        searchAuthor: "",
-      },
-    };
-  }
+import React, { useState } from 'react';
+import { Card, Container, Icon } from 'semantic-ui-react';
 
-  renderSearchResults = () => {
-    if (this.state.isSearching === false) {
-      return <div>Search for qoute</div>;
-    } else if (this.state.quotes.length !== 0) {
-      return this.state.quotes.map((quote, index) => (
-        <div key={index}>
-          <p className='quote-text'>{quote.quote}</p>
-          <h5 className='quote-author'>{quote.author}</h5>
-        </div>
-      ));
-    } else {
-      alert("No results to be Shown");
-    }
+const server = 'https://amber-wary-art.glitch.me';
+// const server = "http://localhost:36297";
+const SearchQuotes = () => {
+  const [searchWord, setSearchWord] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const handleSearchInput = (event) => {
+    setSearchWord(event.target.value);
   };
 
-  handleSearch = (event) => {
-    event.preventDefault();
-    fetch(
-      `https://afternoon-taiga-61637.herokuapp.com/quotes/search?term=${
-        this.state.searchParams.searchQuote
-      }&author=${this.state.searchParams.searchAuthor}`,
-    )
-      .then((result) => result.json())
-      .then((quotes) => this.setState({ quotes: quotes, isSearching: true }));
-  };
-  handleSearchinputs = (event) => {
-    const searchValues = this.state.searchParams;
-    searchValues[event.target.name] = event.target.value;
-    this.setState({ searchParams: searchValues, isSearching: false });
+  const handleSearchResult = () => {
+    fetch(`${server}/quotes/search?term=${searchWord}`)
+      .then((res) => res.json())
+      .then((result) => setSearchResults(result));
   };
 
-  render() {
-    console.log(
-      this.state.searchParams.searchQuote +
-        this.state.searchParams.searchAuthor,
-    );
-    return (
-      <div>
-        <form onSubmit={this.handleSearch}>
-          <input
-            className='form-control'
-            placeholder='Search By Word'
-            type='text'
-            name='searchQuote'
-            onChange={this.handleSearchinputs}
-          />
-          <input
-            className='form-control'
-            placeholder='Search By Author'
-            type='text'
-            name='searchAuthor'
-            onChange={this.handleSearchinputs}
-          />
-          <Button
-            className='btn btn-outline-info'
-            value='Search'
-            onClick={this.handleSearch}
-          />
-        </form>
-        <div className='search-results'>{this.renderSearchResults()}</div>
-      </div>
-    );
-  }
-}
+  return (
+    <Container>
+      <label> search word</label>
+      <input
+        value={searchWord}
+        onChange={handleSearchInput}
+        placeholder='enter search word'
+      ></input>
+      <button onClick={handleSearchResult}>Search Quotes</button>
+      {searchResults.map((quote, index) => (
+        <Card key={index}>
+          <Card.Content>"{quote.quote}" </Card.Content>
+          <Card.Content extra>
+            <Icon name='comments' /> {quote.author}
+          </Card.Content>
+        </Card>
+      ))}
+    </Container>
+  );
+};
 
 export default SearchQuotes;
